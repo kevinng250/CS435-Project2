@@ -40,6 +40,21 @@ class Graph{
     HashSet<Node> getAllNodes(){
         return new HashSet<Node>(nodes);
     }
+
+
+
+    public void addDirectedEdge(final Node first, final Node second){
+        if(adjList.get(first.name) == null){
+            List<Node> ns = new ArrayList<Node>();
+            first.children = ns;
+            adjList.put(first.name, ns);
+        }
+        if(adjList.get(first.name).contains(second.name)){
+            return;
+        }
+        adjList.get(first.name).add(second);
+//        first.children.add(second);
+    }
 }
 
 
