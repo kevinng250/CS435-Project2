@@ -108,12 +108,12 @@ public class Main {
         ArrayList<Node> ns = GraphSearch.DFSIter(l.nodes.get(0), l.nodes.get(9));
         printList(ns);
         // Testing 100000
-//        Graph graph1 = createLinkedList(10000);
-//        ArrayList<Node> linkedList = BFTIterLinkedList(graph1);
-//        printList(linkedList);
-//
-//        ArrayList<Node> linkedList1 = BFTRecLinkedList(graph1);
-//        printList(linkedList1);
+        Graph graph1 = createLinkedList(10000);
+        ArrayList<Node> linkedList = BFTIterLinkedList(graph1);
+        printList(linkedList);
+
+        ArrayList<Node> linkedList1 = BFTRecLinkedList(graph1);
+        printList(linkedList1);
 
     }
 }
