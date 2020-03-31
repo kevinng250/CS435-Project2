@@ -1,8 +1,10 @@
 Node Class
+
     A node has a String attribute for the node's value
     A node also has a List<Node> attribute for the node's child/neighbors
 
 Graph Class
+
     A graph has List<Node> attribute listing out all the nodes in the graph
     A graph also has an adjList HashMap<String, List < Node > > that has a 
     node value as key and a corresponding list of children
@@ -21,6 +23,7 @@ Graph Class
         **used explicitly for createLinkedList**
 
 GraphSearch
+
     ArrayList<Node> DFSRec(final Node start, final Node end)
         returns an ArrayList of Nodes representing the path given through a DFS Recursively
         returns null if no path found
@@ -37,6 +40,7 @@ GraphSearch
         returns an ArrayList of nodes representing the path given from a BFT iteratively
     
 Main
+
     Graph createRandomUnweightedGraphIter(int n)
         returns a graph with nodes with values ranging from 0 to n-1
         Algorithm:
