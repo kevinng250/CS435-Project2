@@ -53,7 +53,6 @@ class Graph{
             return;
         }
         adjList.get(first.name).add(second);
-//        first.children.add(second);
     }
 }
 
