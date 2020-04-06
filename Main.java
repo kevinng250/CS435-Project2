@@ -255,6 +255,7 @@ public class Main {
 
     public static void main(String[] args){
         //Problem 3: Traverse This Town
+        System.out.println("Problem 3");
         Graph g = createRandomUnweightedGraphIter(6);
         ArrayList<Node> dfsRec = GraphSearch.DFSRec(g.nodes.get(0), g.nodes.get(5));
         System.out.println("DFS Recursive: ");
@@ -280,6 +281,7 @@ public class Main {
         //Problem 4: Thank U, Vertext
 
         //Manually Created - See DirectedGraphVisualization.jpeg in Github for picture of graph
+        System.out.println("\nProblem 4");
         DirectedGraph dag = new DirectedGraph();
         dag.addNode("0");
         dag.addNode("1");
@@ -295,10 +297,10 @@ public class Main {
         dag.addDirectedEdge(nodes.get(5), nodes.get(2));
         dag.addDirectedEdge(nodes.get(5), nodes.get(0));
         ArrayList<Node> ns = TopSort.mDFS(dag);
-        System.out.println("mDFS:");
+        System.out.println("mDFS on manually created DAG:");
         printList(ns);
         ns = TopSort.Kahns(dag);
-        System.out.println("Kahns:");
+        System.out.println("Kahns on manually created DAG:");
         printList(ns);
 
         DirectedGraph d = createRandomDAGIter(5);
@@ -312,7 +314,7 @@ public class Main {
         //Problem 5: Uno, Do', Tre', Cuatro, I Node You Want Me (WeightedGraph)
 
         //Manually Created Graph - See WeightedGraphDijkstra'sVisualization.jpeg in Github for picture of graph
-        System.out.println("\nWeightedGraph:");
+        System.out.println("\nProblem 5\nWeightedGraph:");
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.addNode("A");//0
         weightedGraph.addNode("B");//1
@@ -367,7 +369,7 @@ public class Main {
 
 
         //Problem 6: When You Wish Upon A* (GridGraph)
-        System.out.println("\nRandom GridGraph:\nConnected Edges Coordinates: ");
+        System.out.println("\nProblem 6\nRandom GridGraph:\nConnected Edges Coordinates: ");
         //Randomly created GridGraph
         int n = 5;
         GridGraph random = createRandomGridGraph(n);
@@ -418,7 +420,7 @@ public class Main {
         printGridNodeList(astar);
 
         //Extra Credit
-        System.out.println("\nDijkstra's finalized amount vs A* finalized amount");
+        System.out.println("\nExtra Credit\nDijkstra's finalized amount vs A* finalized amount");
         WeightedGraph weightedGraph3 = createRandomCompleteWeightedGraph(16);
         GridGraph gridGraph1 = createRandomGridGraph(4);
         dijkstras(weightedGraph3.nodes.get(0));
