@@ -76,7 +76,6 @@ public class Main {
                 }
                 int num = rand.nextInt(10);
                 graph.addWeightedEdge(graph.nodes.get(i), graph.nodes.get(j), num);
-//                System.out.println(graph.nodes.get(i).name + ", " + graph.nodes.get(j).name);
 
             }
         }
@@ -142,38 +141,18 @@ public class Main {
         for(int x = 0; x < n; x++){
             for(int y = 0; y < n; y++) {
                 graph.nodes.get(x).get(y);
-                if (0 <= x - 1) {
-                    int ran = rand.nextInt(2);
-                    if(ran == 1) {
-                        graph.addUndirectedEdge(graph.nodes.get(x).get(y), graph.nodes.get(x - 1).get(y));
-//                        System.out.println("Distance: " + GridGraph.areNeighbors(graph.nodes.get(x).get(y), graph.nodes.get(x - 1).get(y)));
-                        System.out.println(graph.nodes.get(x).get(y).name + " (" + graph.nodes.get(x).get(y).x + ", " + graph.nodes.get(x).get(y).y + ") " +
-                                graph.nodes.get(x - 1).get(y).name + " (" + graph.nodes.get(x - 1).get(y).x + ", " + graph.nodes.get(x - 1).get(y).y + ") ");
-                    }
-                }
                 if(x + 1 < n ) {
-                    int ran = rand.nextInt(2);
-                    if (ran == 1) {
+                    int ran = rand.nextInt(4);
+                    if (ran <= 2) {
                         graph.addUndirectedEdge(graph.nodes.get(x).get(y), graph.nodes.get(x + 1).get(y));
-//                        System.out.println("Distance: " + GridGraph.areNeighbors(graph.nodes.get(x).get(y), graph.nodes.get(x + 1).get(y)));
                         System.out.println(graph.nodes.get(x).get(y).name + " (" + graph.nodes.get(x).get(y).x + ", " + graph.nodes.get(x).get(y).y + ") " +
                                 graph.nodes.get(x + 1).get(y).name + " (" + graph.nodes.get(x + 1).get(y).x + ", " + graph.nodes.get(x + 1).get(y).y + ") ");
                     }
                 }
-                if(0 <= y - 1) {
-                    int ran = rand.nextInt(2);
-                    if (ran == 1) {
-                        graph.addUndirectedEdge(graph.nodes.get(x).get(y), graph.nodes.get(x).get(y - 1));
-//                        System.out.println("Distance: " + GridGraph.areNeighbors(graph.nodes.get(x).get(y), graph.nodes.get(x).get(y - 1)));
-                        System.out.println(graph.nodes.get(x).get(y).name + " (" + graph.nodes.get(x).get(y).x + ", " + graph.nodes.get(x).get(y).y + ") " +
-                                graph.nodes.get(x).get(y - 1).name + " (" + graph.nodes.get(x).get(y - 1).x + ", " + graph.nodes.get(x).get(y - 1).y + ") ");
-                    }
-                }
                 if(y+1 < n) {
-                    int ran = rand.nextInt(2);
-                    if (ran == 1) {
+                    int ran = rand.nextInt(4);
+                    if (ran <= 2) {
                         graph.addUndirectedEdge(graph.nodes.get(x).get(y), graph.nodes.get(x).get(y + 1));
-//                        System.out.println("Distance: " + GridGraph.areNeighbors(graph.nodes.get(x).get(y), graph.nodes.get(x).get(y + 1)));
                         System.out.println(graph.nodes.get(x).get(y).name + " (" + graph.nodes.get(x).get(y).x + ", " + graph.nodes.get(x).get(y).y + ") " +
                                 graph.nodes.get(x).get(y + 1).name + " (" + graph.nodes.get(x).get(y + 1).x + ", " + graph.nodes.get(x).get(y + 1).y + ") ");
                     }
@@ -192,7 +171,6 @@ public class Main {
         parents.put(sourceNode, null);
         GridGraph.GridNode curr = sourceNode;
         while(curr != null && distances.get(curr) != Integer.MAX_VALUE){
-//            System.out.println(curr.name);
             if(curr == destNode){
                 break;
             }
@@ -214,9 +192,7 @@ public class Main {
                 }
             }
             int m = Integer.MAX_VALUE;
-//            System.out.println("Size " + unvisited.size());
             for(int i = 0; i < unvisited.size(); i++){
-//                System.out.println(unvisited.get(i));
                 if(distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode) < m){
                     m = distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode);
                     curr = unvisited.get(i);
@@ -275,6 +251,8 @@ public class Main {
             System.out.println("null");
         }
     }
+
+
     public static void main(String[] args){
         //Problem 3: Traverse This Town
         Graph g = createRandomUnweightedGraphIter(6);
@@ -300,6 +278,8 @@ public class Main {
 
 
         //Problem 4: Thank U, Vertext
+
+        //Manually Created - See DirectedGraphVisualization.jpeg in Github for picture of graph
         DirectedGraph dag = new DirectedGraph();
         dag.addNode("0");
         dag.addNode("1");
@@ -331,7 +311,7 @@ public class Main {
 
         //Problem 5: Uno, Do', Tre', Cuatro, I Node You Want Me (WeightedGraph)
 
-        //Manually Created Graph - See WeightedGraphDijkstra'sVisualization.jpeg for picture of graph
+        //Manually Created Graph - See WeightedGraphDijkstra'sVisualization.jpeg in Github for picture of graph
         System.out.println("\nWeightedGraph:");
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.addNode("A");//0
@@ -387,7 +367,7 @@ public class Main {
 
 
         //Problem 6: When You Wish Upon A* (GridGraph)
-        System.out.println("\nGridGraph:\nConnected Edges Coordinates: ");
+        System.out.println("\nRandom GridGraph:\nConnected Edges Coordinates: ");
         //Randomly created GridGraph
         int n = 5;
         GridGraph random = createRandomGridGraph(n);
@@ -396,7 +376,7 @@ public class Main {
         ArrayList<GridGraph.GridNode> list = astar(sourceNode, destNode);
         printGridNodeList(list);
 
-        //Manually created GridGraph - See GridGraphA*Visualization.jpeg for picture of graph
+        //Manually created GridGraph - See GridGraphA*Visualization.jpeg in Github for picture of graph
         GridGraph graph = new GridGraph();
         //Adds a bunch a grid of nodes
         int count = 0;
@@ -433,7 +413,7 @@ public class Main {
         graph.addUndirectedEdge(graph.nodes.get(4).get(2), graph.nodes.get(4).get(1));
         graph.addUndirectedEdge(graph.nodes.get(4).get(1), graph.nodes.get(4).get(0));
         graph.addUndirectedEdge(graph.nodes.get(4).get(2), graph.nodes.get(3).get(2));}
-        System.out.println("A* Algorithm Path");
+        System.out.println("Manually Created A* Algorithm Path");
         ArrayList<GridGraph.GridNode> astar = astar(source, dest);
         printGridNodeList(astar);
 
