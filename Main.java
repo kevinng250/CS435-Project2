@@ -331,7 +331,7 @@ public class Main {
 
         //Problem 5: Uno, Do', Tre', Cuatro, I Node You Want Me (WeightedGraph)
 
-        //Manually Created Graph
+        //Manually Created Graph - See WeightedGraphDijkstra'sVisualization.jpeg for picture of graph
         System.out.println("\nWeightedGraph:");
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.addNode("A");//0
@@ -396,7 +396,7 @@ public class Main {
         ArrayList<GridGraph.GridNode> list = astar(sourceNode, destNode);
         printGridNodeList(list);
 
-        //Manually created GridGraph
+        //Manually created GridGraph - See GridGraphA*Visualization.jpeg for picture of graph
         GridGraph graph = new GridGraph();
         //Adds a bunch a grid of nodes
         int count = 0;
