@@ -9,13 +9,12 @@ public class Main {
         Random rand = new Random();
         System.out.println("Edges: ");
         for(int i = 0; i < n; i++){
-            Node node = graph.nodes.get(i);
             for(int j = i+1; j < n; j++){
                 if(i == j){
                     continue;
                 }
                 int num = rand.nextInt(10);
-                if(num < 3){
+                if(num < 4){
                     graph.addUndirectedEdge(graph.nodes.get(i), graph.nodes.get(j));
                     System.out.println(graph.nodes.get(i).name + ", " + graph.nodes.get(j).name);
                     //Prints out the pair of connected vertices
@@ -46,7 +45,6 @@ public class Main {
         }
         Random rand = new Random();
         for(int i = 0; i < n; i++){
-            Node node = dag.nodes.get(i);
             for(int j = i+1; j < n; j++){
                 if(i == j){
                     continue;
@@ -54,7 +52,6 @@ public class Main {
                 int num = rand.nextInt(10);
                 if(num < 4){
                     dag.addDirectedEdge(dag.nodes.get(i), dag.nodes.get(j));
-                    System.out.println(dag.nodes.get(i).name + ", " + dag.nodes.get(j).name);
                 }
             }
         }
@@ -69,7 +66,6 @@ public class Main {
         }
         Random rand = new Random();
         for(int i = 0; i < n; i++){
-            WeightedGraph.Node node = graph.nodes.get(i);
             for(int j = 0; j < n; j++){
                 if(i == j){
                     continue;
@@ -113,10 +109,10 @@ public class Main {
                     }
                 }
             }
-            int m = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
             for(int i = 0; i < unvisited.size(); i++){
-                if(distances.get(unvisited.get(i)) < m){
-                    m = distances.get(unvisited.get(i));
+                if(distances.get(unvisited.get(i)) < min){
+                    min = distances.get(unvisited.get(i));
                     curr = unvisited.get(i);
                 }
             }
@@ -191,10 +187,10 @@ public class Main {
                     }
                 }
             }
-            int m = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
             for(int i = 0; i < unvisited.size(); i++){
-                if(distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode) < m){
-                    m = distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode);
+                if(distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode) < min){
+                    min = distances.get(unvisited.get(i)) + heuristic(unvisited.get(i), destNode);
                     curr = unvisited.get(i);
                 }
             }
@@ -202,15 +198,11 @@ public class Main {
                 break;
             }
         }
-        Stack<GridGraph.GridNode> stack = new Stack<>();
-
         while(curr != null){
-            stack.push(curr);
+            ret.add(curr);
             curr = parents.get(curr);
         }
-        while(!stack.isEmpty()){
-            ret.add(stack.pop());
-        }
+        Collections.reverse(ret);
         System.out.println("A* # of Nodes Finalized: " + visited.size());
         if(ret.get(ret.size()-1).name != destNode.name){
             return new ArrayList<>();
@@ -247,185 +239,21 @@ public class Main {
             }
             System.out.println(sb.toString());
         }
-        else{
-            System.out.println("null");
-        }
     }
 
 
     public static void main(String[] args){
+
         //Problem 3: Traverse This Town
-        System.out.println("Problem 3");
-        Graph g = createRandomUnweightedGraphIter(6);
-        ArrayList<Node> dfsRec = GraphSearch.DFSRec(g.nodes.get(0), g.nodes.get(5));
-        System.out.println("DFS Recursive: ");
-        printList(dfsRec);
-        ArrayList<Node> dfsIter = GraphSearch.DFSIter(g.nodes.get(0), g.nodes.get(5));
-        System.out.println("DFS Iterative: ");
-        printList(dfsIter);
-        ArrayList<Node> bftRec = GraphSearch.BFTRec(g);
-        System.out.println("BFT Recursive: ");
-        printList(bftRec);
-        ArrayList<Node> bftIter = GraphSearch.BFTIter(g);
-        System.out.println("BFT Iterative: ");
-        printList(bftIter);
-
-        Graph l = createLinkedList(10);
-        System.out.println("DFS Iterative LinkedList: ");
-        l = createLinkedList(1000);
-        ArrayList<Node> linkedList = BFTIterLinkedList(l);
-        printList(linkedList);
-//        linkedList = BFTRecLinkedList(l); // commented out for testing purposes
-
-
+        TestCases.Problem3();
         //Problem 4: Thank U, Vertext
-
-        //Manually Created - See DirectedGraphVisualization.jpeg in Github for picture of graph
-        System.out.println("\nProblem 4");
-        DirectedGraph dag = new DirectedGraph();
-        dag.addNode("0");
-        dag.addNode("1");
-        dag.addNode("2");
-        dag.addNode("3");
-        dag.addNode("4");
-        dag.addNode("5");
-        List<Node> nodes = dag.nodes;
-        dag.addDirectedEdge(nodes.get(3), nodes.get(1));
-        dag.addDirectedEdge(nodes.get(2), nodes.get(3));
-        dag.addDirectedEdge(nodes.get(4), nodes.get(1));
-        dag.addDirectedEdge(nodes.get(4), nodes.get(0));
-        dag.addDirectedEdge(nodes.get(5), nodes.get(2));
-        dag.addDirectedEdge(nodes.get(5), nodes.get(0));
-        ArrayList<Node> ns = TopSort.mDFS(dag);
-        System.out.println("mDFS on manually created DAG:");
-        printList(ns);
-        ns = TopSort.Kahns(dag);
-        System.out.println("Kahns on manually created DAG:");
-        printList(ns);
-
-        DirectedGraph d = createRandomDAGIter(5);
-        ArrayList<Node> mDFS = TopSort.mDFS(d);
-        ArrayList<Node> kahns = TopSort.Kahns(d);
-        System.out.println("mDFS on Random DAG:");
-        printList(mDFS);
-        System.out.println("Kahns on Random DAG:");
-        printList(kahns);
-
+        TestCases.Problem4();
         //Problem 5: Uno, Do', Tre', Cuatro, I Node You Want Me (WeightedGraph)
-
-        //Manually Created Graph - See WeightedGraphDijkstra'sVisualization.jpeg in Github for picture of graph
-        System.out.println("\nProblem 5\nWeightedGraph:");
-        WeightedGraph weightedGraph = new WeightedGraph();
-        weightedGraph.addNode("A");//0
-        weightedGraph.addNode("B");//1
-        weightedGraph.addNode("C");//2
-        weightedGraph.addNode("D");//3
-        weightedGraph.addNode("E");//4
-        weightedGraph.addNode("F");//5
-        weightedGraph.addNode("G");//6
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(0), weightedGraph.nodes.get(1), 2);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(0), weightedGraph.nodes.get(3), 7);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(0), weightedGraph.nodes.get(5), 5);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(0), weightedGraph.nodes.get(2), 4);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(1), weightedGraph.nodes.get(0), 2);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(1), weightedGraph.nodes.get(3), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(1), weightedGraph.nodes.get(4), 3);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(1), weightedGraph.nodes.get(6), 8);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(2), weightedGraph.nodes.get(0), 4);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(2), weightedGraph.nodes.get(5), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(3), weightedGraph.nodes.get(0), 7);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(3), weightedGraph.nodes.get(1), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(3), weightedGraph.nodes.get(5), 10);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(3), weightedGraph.nodes.get(6), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(4), weightedGraph.nodes.get(1), 3);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(4), weightedGraph.nodes.get(6), 7);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(5), weightedGraph.nodes.get(2), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(5), weightedGraph.nodes.get(0), 5);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(5), weightedGraph.nodes.get(3), 10);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(5), weightedGraph.nodes.get(6), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(6), weightedGraph.nodes.get(1), 8);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(6), weightedGraph.nodes.get(3), 6);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(6), weightedGraph.nodes.get(4), 7);
-        weightedGraph.addWeightedEdge(weightedGraph.nodes.get(6), weightedGraph.nodes.get(5), 6);
-
-        //Randomly Created WeightedGraph
-        WeightedGraph weightedGraph2 = createRandomCompleteWeightedGraph(5);
-        System.out.println("Node :: {child : weight}");     //shows node child weight pairings
-        for(int i = 0; i < weightedGraph2.nodes.size(); i++){
-            WeightedGraph.Node node = weightedGraph2.nodes.get(i);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Node " + node.name + " :: ");
-            for(WeightedGraph.Node child : node.children.keySet()){
-                sb.append(child.name +":" + node.children.get(child) + " ");
-            }
-            System.out.println(sb.toString());
-        }
-
-        HashMap<WeightedGraph.Node, Integer> dijkstra = dijkstras(weightedGraph2.nodes.get(0));
-        System.out.println("Dijkstra's Algorithm to each node: ");
-        for(WeightedGraph.Node node : dijkstra.keySet()){
-            System.out.println(node.name + ": " + dijkstra.get(node));
-        }
-
-
+        TestCases.Problem5();
         //Problem 6: When You Wish Upon A* (GridGraph)
-        System.out.println("\nProblem 6\nRandom GridGraph:\nConnected Edges Coordinates: ");
-        //Randomly created GridGraph
-        int n = 5;
-        GridGraph random = createRandomGridGraph(n);
-        GridGraph.GridNode sourceNode = random.nodes.get(0).get(0);
-        GridGraph.GridNode destNode = random.nodes.get(n-1).get(n-1);
-        ArrayList<GridGraph.GridNode> list = astar(sourceNode, destNode);
-        printGridNodeList(list);
-
-        //Manually created GridGraph - See GridGraphA*Visualization.jpeg in Github for picture of graph
-        GridGraph graph = new GridGraph();
-        //Adds a bunch a grid of nodes
-        int count = 0;
-        for(int x = 0; x < 5; x++){
-            for(int y = 0; y < 5; y++){
-                graph.addGridNode(x,y,Integer.toString(count));
-                count++;
-            }
-        }
-        GridGraph.GridNode source = graph.nodes.get(0).get(0);
-        GridGraph.GridNode dest = graph.nodes.get(2).get(1);{
-        graph.addUndirectedEdge(graph.nodes.get(0).get(0), graph.nodes.get(0).get(1));
-        graph.addUndirectedEdge(graph.nodes.get(0).get(1), graph.nodes.get(0).get(2));
-        graph.addUndirectedEdge(graph.nodes.get(0).get(2), graph.nodes.get(0).get(3));
-        graph.addUndirectedEdge(graph.nodes.get(0).get(3), graph.nodes.get(0).get(4));
-        graph.addUndirectedEdge(graph.nodes.get(0).get(3), graph.nodes.get(1).get(3));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(3), graph.nodes.get(1).get(2));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(2), graph.nodes.get(1).get(1));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(1), graph.nodes.get(1).get(0));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(3), graph.nodes.get(2).get(3));
-        graph.addUndirectedEdge(graph.nodes.get(2).get(3), graph.nodes.get(3).get(3));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(3), graph.nodes.get(1).get(4));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(4), graph.nodes.get(2).get(4));
-        graph.addUndirectedEdge(graph.nodes.get(2).get(4), graph.nodes.get(3).get(4));
-        graph.addUndirectedEdge(graph.nodes.get(3).get(4), graph.nodes.get(4).get(4));
-        graph.addUndirectedEdge(graph.nodes.get(1).get(0), graph.nodes.get(2).get(0));
-        graph.addUndirectedEdge(graph.nodes.get(2).get(0), graph.nodes.get(3).get(0));
-        graph.addUndirectedEdge(graph.nodes.get(3).get(0), graph.nodes.get(3).get(1));
-        graph.addUndirectedEdge(graph.nodes.get(3).get(1), graph.nodes.get(3).get(2));
-        graph.addUndirectedEdge(graph.nodes.get(3).get(2), graph.nodes.get(2).get(2));
-        graph.addUndirectedEdge(graph.nodes.get(2).get(2), graph.nodes.get(2).get(1));
-        graph.addUndirectedEdge(graph.nodes.get(4).get(4), graph.nodes.get(4).get(3));
-        graph.addUndirectedEdge(graph.nodes.get(4).get(3), graph.nodes.get(4).get(2));
-        graph.addUndirectedEdge(graph.nodes.get(4).get(2), graph.nodes.get(4).get(1));
-        graph.addUndirectedEdge(graph.nodes.get(4).get(1), graph.nodes.get(4).get(0));
-        graph.addUndirectedEdge(graph.nodes.get(4).get(2), graph.nodes.get(3).get(2));}
-        System.out.println("Manually Created A* Algorithm Path");
-        ArrayList<GridGraph.GridNode> astar = astar(source, dest);
-        printGridNodeList(astar);
-
+        TestCases.Problem6();
         //Extra Credit
-        System.out.println("\nExtra Credit\nDijkstra's finalized amount vs A* finalized amount");
-        WeightedGraph weightedGraph3 = createRandomCompleteWeightedGraph(16);
-        GridGraph gridGraph1 = createRandomGridGraph(4);
-        dijkstras(weightedGraph3.nodes.get(0));
-        astar(gridGraph1.nodes.get(0).get(0), gridGraph1.nodes.get(3).get(3));
-        System.out.println("A* is generally lower");
+        TestCases.ExtraCredit();
 
     }
 }

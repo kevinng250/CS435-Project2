@@ -24,7 +24,6 @@ class DirectedGraph implements Graphs{
             return;
         }
         adjList.get(first.name).add(second);
-//        first.children.add(second);
     }
     public void removeDirectedEdge(final Node first, final Node second){
         if(adjList.get(first.name) == null || !adjList.get(first.name).contains(second)){

@@ -12,21 +12,13 @@ class Graph{
         this.nodes = new ArrayList<Node>();
     }
     void addNode(final String nodeVal){
+        List<Node> ns = new ArrayList<Node>();
         Node node = new Node(nodeVal);
-        adjList.put(nodeVal, null);
+        node.children = ns;
+        adjList.put(nodeVal, ns);
         nodes.add(node);
     }
     void addUndirectedEdge(final Node first, final Node second){
-        if(adjList.get(first.name) == null){
-            List<Node> ns = new ArrayList<Node>();
-            first.children = ns;
-            adjList.put(first.name, ns);
-        }
-        if(adjList.get(second.name) == null){
-            List<Node> ns = new ArrayList<Node>();
-            second.children = ns;
-            adjList.put(second.name, ns);
-        }
         if(adjList.get(first.name).contains(second)){
             return;
         }

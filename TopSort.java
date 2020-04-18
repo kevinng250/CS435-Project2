@@ -12,7 +12,8 @@ public class TopSort {
             if(node.children != null){
                 for(int i = 0; i < node.children.size(); i++){
                     Node child = node.children.get(i);
-                    h.put(child, h.get(child) -1);
+                    Integer inDegree = h.get(child) -1;
+                    h.put(child, inDegree);
                 }
             }
             addNodesWith0(h, queue);
@@ -58,7 +59,7 @@ public class TopSort {
         }
         return ret;
     }
-    static void mDFSHelper(Node node, Stack stack, HashSet<Node> visited){
+    static void mDFSHelper(Node node, Stack<Node> stack, HashSet<Node> visited){
         visited.add(node);
         if(node.children != null) {
             for (int i = 0; i < node.children.size(); i++) {

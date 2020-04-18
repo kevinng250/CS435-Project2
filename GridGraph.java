@@ -43,9 +43,7 @@ public class GridGraph {
     void removeUndirectedEdge(final GridNode first, final GridNode second){
         if(areNeighbors(first,second)){
             first.children.remove(second);
-            adjList.put(first.name, first.children);
             second.children.remove(first);
-            adjList.put(second.name, second.children);
         }
     }
     static boolean areNeighbors(final GridNode first, final GridNode second){
@@ -53,7 +51,8 @@ public class GridGraph {
         double firstY = first.y;
         double secondX = second.x;
         double secondY = second.y;
-        double distance = Math.sqrt((Math.pow((firstY - secondY),2) + Math.pow((firstX - secondX),2)));
+        double distance = Math.sqrt((double)(Math.pow((first.y - second.y),2)
+                + (double)(Math.pow((first.x - second.x),2))));
         if(distance == 1){
             return true;
         }
